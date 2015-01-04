@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/budgeter/expense'
+require_relative '../lib/budgeter/income'
+require_relative '../lib/budgeter/budget'
+
+
+puts "\n Welcome to the budgeter!"
+puts "\n"
+puts "\n This will calulate a monthly budget for you!"
+puts "\n"
+puts "What would you like to call your budget?"
+answer = gets.chomp
+budget = Budget.new(answer)
+
+loop do
+  puts "Enter your expense name: "
+  name = gets.chomp.downcase
+  puts "Enter your expense amount: "
+  amount = gets.chomp.to_i
+
+  expense = Expense.new(name, amount)
+  budget.add_expense(expense)
+  puts "Continue(C) or Done(D)"
+  answer = gets.chomp.downcase
+  if answer == 'd' 
+   break
+  end
+end
+
+loop do
+  puts "Enter your income name: "
+  name = gets.chomp.downcase
+  puts "Enter your income type (Salary,Bi-monthly,Hourly): "
+  type = gets.chomp.downcase
+  puts "Enter your income amount: "
+  amount = gets.chomp.to_i
+
+  income = Income.new(name, amount, type)
+  budget.add_income(income)
+  puts "Continue(C) or Done(D)"
+  answer = gets.chomp.downcase
+  if answer == 'd'
+    budget.calculate_stats
+    budget.display_stats
+    break
+  end
+end
+
+
+
+# expense1 = Expense.new("Car Payment", 393)
+# expense2 = Expense.new("Phone Bill", 140)
+# expense3 = Expense.new("Internet Bill", 40)
+# expense4 = Expense.new("Rent", 850)
+
+# income1 = Income.new("Kyle", 1700, "bi-monthly")
+# income2 = Income.new("Kara", 700, "bi-monthly")
+
+
+# budget.add_expense(expense1)
+# budget.add_expense(expense2)
+# budget.add_expense(expense3)
+# budget.add_expense(expense4)
+
+# budget.add_income(income1)
+# budget.add_income(income2)
+
+# budget.calculate_stats
+# budget.display_stats
